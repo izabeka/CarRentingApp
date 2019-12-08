@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 //Importy z innych plików
+const users = require('./routes/users')
 
 
 //Hello World na ścieżce / zapytania dla GET
@@ -27,4 +28,6 @@ client.connect(err => {
   // perform actions on the collection object
   client.close();
 });
+
+app.use('/user', users);
 
