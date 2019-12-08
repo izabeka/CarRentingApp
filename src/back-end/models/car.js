@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     amountOfCars: {
         type: Number
     }
-})
+});
 const Car = mongoose.model('Car', userSchema);
 
 //validacja
@@ -60,12 +60,12 @@ function validateCar(car){
         width: Joi.string().required(),
         length: Joi.string().required(),
         amountOfCars: Joi.number()
-    }
+    };
 
     return Joi.validate(car, schema)
-}
+};
 
 //exportowanie
 
 exports.Car = Car;
-exports.validateCar = validateCar;
+exports.validate = validateCar;
