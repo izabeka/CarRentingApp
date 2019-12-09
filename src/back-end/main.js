@@ -38,5 +38,5 @@ mongoose.connect('mongodb://localhost/test')
 
 app.use(express.json());
 app.use('/api/cars', cars);
-app.use('/user', users);
+app.use('/api/user', users);
 
