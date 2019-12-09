@@ -1,9 +1,11 @@
 //Importy
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+const Joi = require('joi')
 
 //Importy z innych plików
-
+const users = require('./routes/users');
 
 //Hello World na ścieżce / zapytania dla GET
 
@@ -17,14 +19,14 @@ app.listen(port, () => {
     console.log(`Nasluchuje portu ${port}...`);
 })
 
-// Połączenie z bazą danych
+// Połączenie z bazą danych ONLINE
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
+   .then(() => console.log('Connected to MongoDB...'))
+   .catch(err => console.log('Could not connect to MongoDB...' + err));
+
+app.use(express.json())
+
+//Obsługa requestów
+app.use('/api/user', users);
 
