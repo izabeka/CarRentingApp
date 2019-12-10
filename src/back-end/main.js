@@ -4,9 +4,8 @@ const app = express();
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-
 //Importy z innych plików
-
+const users = require('./routes/users')
 const cars = require('./routes/cars.js');
 
 //Hello World na ścieżce / zapytania dla GET
@@ -14,7 +13,6 @@ const cars = require('./routes/cars.js');
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
@@ -27,7 +25,6 @@ app.listen(port, () => {
 //   .then(() => console.log('Connected to MongoDB...'))
 //   .catch(err => console.error('Could not connect to MongoDB...'));
 
-
 // Połączenie z lokalną bazą danych
 
 mongoose.connect('mongodb://localhost/test')
@@ -38,4 +35,4 @@ mongoose.connect('mongodb://localhost/test')
 
 app.use(express.json());
 app.use('/api/cars', cars);
-
+app.use('/api/user', users);
