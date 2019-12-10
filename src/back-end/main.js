@@ -6,7 +6,7 @@ const Joi = require('joi');
 
 
 //Importy z innych plików
-
+const users = require('./routes/users')
 const cars = require('./routes/cars.js');
 
 //Hello World na ścieżce / zapytania dla GET
@@ -38,4 +38,4 @@ mongoose.connect('mongodb://localhost/test')
 
 app.use(express.json());
 app.use('/api/cars', cars);
-
+app.use('/api/user', users);
