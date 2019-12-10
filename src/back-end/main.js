@@ -1,18 +1,18 @@
-//Importy
+//Importy modulow
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Joi = require('joi')
+const Joi = require('joi');
 
 //Importy z innych plików
-const users = require('./routes/users');
+const users = require('./routes/users')
+const cars = require('./routes/cars.js');
 
 //Hello World na ścieżce / zapytania dla GET
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
@@ -21,12 +21,18 @@ app.listen(port, () => {
 
 // Połączenie z bazą danych ONLINE
 
-mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
-   .then(() => console.log('Connected to MongoDB...'))
-   .catch(err => console.log('Could not connect to MongoDB...' + err));
+// mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
+//   .then(() => console.log('Connected to MongoDB...'))
+//   .catch(err => console.error('Could not connect to MongoDB...'));
 
-app.use(express.json())
+// Połączenie z lokalną bazą danych
 
-//Obsługa requestów
+mongoose.connect('mongodb://localhost/test')
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...'));
+
+//uzycie funkcji
+
+app.use(express.json());
+app.use('/api/cars', cars);
 app.use('/api/user', users);
-
