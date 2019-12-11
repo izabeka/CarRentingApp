@@ -1,8 +1,10 @@
 //Importy
 const express = require('express');
 const router = express.Router();
-const {User, validateUser} = require('../models/user');
+const {User, validateUser, validateLogin} = require('../models/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const verifyToken = require('./tokenVerify');
 
 //Rejestracja
 router.post('/register', async (req, res) => {
@@ -51,8 +53,33 @@ router.post('/register', async (req, res) => {
     }
 });
 
+//Logowanie
+router.post('/login', async (req, res) => {
+    //Walidacja
+    const { error } = validateLogin(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    };
+
+    //Sprawdzanie czy użytkownik istnieje w bazie
+    let userLogin = await User.findOne({login: req.body.login});
+    if (!userLogin) {
+        return res.status(400).send('Login is wrong.');
+    }
+
+    //Sprawdzenie poprawności hasła
+    let validationPassword = await bcrypt.compare(req.body.password, userLogin.password)
+    if (!validationPassword) {
+        return res.status(400).send('Password is incorrect.');
+    }
+
+    //Tworzenie tokenu
+    const token = jwt.sign({_id: userLogin._id}, 'S3cr3t');
+    res.header('x-auth-token', token).send(`${userLogin.login} you are logged in. Your token is: ${token}`);
+});
+
 // aktualizacja danych użytkownika, 
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
 
     const {error} = validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -67,7 +94,7 @@ router.put('/:id', async (req, res) => {
     res.send(user);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     const user = await User.findByIdAndRemove(req.params.id)
 
     if(!user) return res.status(404).send('User does not exist!');
