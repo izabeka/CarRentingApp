@@ -90,16 +90,30 @@ router.post('/login', async (req, res) => {
 // aktualizacja danych użytkownika, 
 router.put('/:id', verifyToken, async (req, res) => {
 
-    const {error} = validateUser(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const user = await User.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        password: req.body.password,
-        // confirmPassword: req.body.confirmPassword
-    }, {new: true})
-
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).send ('User does not exist!');
+
+    let currentPassword = req.body.currentPassword;
+    let validationPassword = await bcrypt.compare(currentPassword, user.password)
+
+
+    if (!validationPassword) {
+        return res.status(400).send('Password is incorrect.');
+    }
+
+    let newPassword = req.body.newPassword;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+
+
+    user.set({
+        name: req.body.name,
+        password: hashPassword
+    });
+    
+
+    user.save();
     res.send(user);
 });
 
