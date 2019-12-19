@@ -1,9 +1,11 @@
+const verifyToken = require('../middleware/tokenVerify');
+const admin = require('../middleware/admin');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const {Car, validate} = require('../models/car.js');
 
-router.post('/', async (req, res) => {
+router.post('/', [verifyToken, admin], async (req, res) => {
 
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);

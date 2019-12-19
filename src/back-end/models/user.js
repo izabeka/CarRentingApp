@@ -1,6 +1,7 @@
 //kolekcja użytkownika
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     login: {
@@ -33,9 +34,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         minlength: 8,
         maxlength: 1024,
-    },
+        },
     isAdmin: Boolean
-})
+});
+
+// utworzenie metody do tworzenia tokenu
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin }, 'S3cr3t');
+    return token;
+}
+
 const User = mongoose.model('User', userSchema);
 
 //validacja

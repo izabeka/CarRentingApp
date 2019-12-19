@@ -3,9 +3,18 @@ const express = require('express');
 const router = express.Router();
 const {User, validateUser, validateLogin} = require('../models/user');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const verifyToken = require('./tokenVerify');
+const verifyToken = require('../middleware/tokenVerify');
+const mongoose = require('mongoose');
 
+
+router.get('/me', verifyToken, async (req, res) => {
+    
+        const user = await User.findById(req.userLogin._id).select('-password');
+
+    res.send(user);
+    
+
+});
 //Rejestracja
 router.post('/register', async (req, res) => {
     
@@ -42,12 +51,13 @@ router.post('/register', async (req, res) => {
     //Zapisywanie w bazie
     try {
         await newUser.save()
-        res.status(200).send({
+        const token = newUser.generateAuthToken();
+        res.header('x-auth-token', token).send({
                 message: 'User created',
                 login: newUser.login,
                 email: newUser.email,
                 _id: newUser._id
-        })
+        });
     } catch (err) {
             res.status(400).send(err);
     }
@@ -64,33 +74,46 @@ router.post('/login', async (req, res) => {
     //Sprawdzanie czy użytkownik istnieje w bazie
     let userLogin = await User.findOne({login: req.body.login});
     if (!userLogin) {
-        return res.status(400).send('Login is wrong.');
+        return res.status(400).send('Login or password is wrong.');
     }
 
     //Sprawdzenie poprawności hasła
     let validationPassword = await bcrypt.compare(req.body.password, userLogin.password)
     if (!validationPassword) {
-        return res.status(400).send('Password is incorrect.');
+        return res.status(400).send('Login or password is wrong.');
     }
-
-    //Tworzenie tokenu
-    const token = jwt.sign({_id: userLogin._id}, 'S3cr3t');
-    res.header('x-auth-token', token).send(`${userLogin.login} you are logged in. Your token is: ${token}`);
+    //wywołanie metody dla utworzenia tokenu
+    const token = userLogin.generateAuthToken();
+    res.header('x-auth-token', token).send(`${userLogin.login} you are logged in.`);
 });
 
 // aktualizacja danych użytkownika, 
 router.put('/:id', verifyToken, async (req, res) => {
 
-    const {error} = validateUser(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const user = await User.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword
-    }, {new: true})
-
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).send ('User does not exist!');
+
+    let currentPassword = req.body.currentPassword;
+    let validationPassword = await bcrypt.compare(currentPassword, user.password)
+
+
+    if (!validationPassword) {
+        return res.status(400).send('Password is incorrect.');
+    }
+
+    let newPassword = req.body.newPassword;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+
+
+    user.set({
+        name: req.body.name,
+        password: hashPassword
+    });
+    
+
+    user.save();
     res.send(user);
 });
 
