@@ -7,6 +7,7 @@ const Joi = require('joi');
 //Importy z innych plików
 const users = require('./routes/users')
 const cars = require('./routes/cars.js');
+const socialAuth = require('./routes/auth.js');
 
 //Hello World na ścieżce / zapytania dla GET
 
@@ -21,35 +22,19 @@ app.listen(port, () => {
 
 // Połączenie z bazą danych ONLINE
 
-<<<<<<< HEAD
 // mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
 //   .then(() => console.log('Connected to MongoDB...'))
 //   .catch(err => console.error('Could not connect to MongoDB...'));
-
 
 // Połączenie z lokalną bazą danych
 
 mongoose.connect('mongodb://localhost/test')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
-=======
-mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...'));
-
-// Połączenie z lokalną bazą danych
-
-// mongoose.connect('mongodb://localhost/test')
-//   .then(() => console.log('Connected to MongoDB...'))
-//   .catch(err => console.error('Could not connect to MongoDB...'));
->>>>>>> upstream/master
 
 //uzycie funkcji
 
 app.use(express.json());
 app.use('/api/cars', cars);
-<<<<<<< HEAD
-
-=======
 app.use('/api/user', users);
->>>>>>> upstream/master
+app.use('/auth', socialAuth);

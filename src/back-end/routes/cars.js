@@ -5,11 +5,7 @@ const express = require('express');
 const router = express.Router();
 const {Car, validate} = require('../models/car.js');
 
-<<<<<<< HEAD
-router.post('/', async (req, res) => {
-=======
 router.post('/', [verifyToken, admin], async (req, res) => {
->>>>>>> upstream/master
 
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
