@@ -2,7 +2,7 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const carSchema = new mongoose.Schema({
     brand: {
         type: String,
         required: true,
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
         type: Number
     }
 });
-const Car = mongoose.model('Car', userSchema);
+const Car = mongoose.model('Car', carSchema);
 
 //validacja
 
