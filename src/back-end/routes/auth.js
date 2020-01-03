@@ -19,7 +19,7 @@ passport.use(new googleStrategy({
 }
 );
 
-router.get('/google/auth', async (req,res) => {
+router.get('/google', async (req,res) => {
 
     res.send('Logging in with google');
 
