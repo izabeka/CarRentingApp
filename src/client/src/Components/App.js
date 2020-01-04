@@ -4,6 +4,7 @@ import RegisterCustomer from './RegisterCustomer';
 import MainPage from './MainPage';
 import './App.css';
 
+
 const App = () => {
 
     return (
@@ -13,7 +14,7 @@ const App = () => {
             <Route path="/" exact component={MainPage} />
         </Switch>
     </Router>
-        );
+    );
     
 };
 
