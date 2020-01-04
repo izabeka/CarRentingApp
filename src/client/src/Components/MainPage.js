@@ -10,14 +10,17 @@ import Footer from './Footer';
 class MainPage extends React.Component {
     render() {
         return (
-            <div className='mainPage'>
+        <div className='main-page'>
             <Header/>
-            <Search/>
+            <div className='search-bar'>
+                <h1>The only site<br />where You can rent<br />truly amazing cars!</h1>
+                <Search/>
+            </div>
             <div id='WhyUs'>
                 <h2>Why us?</h2>
                 <div className='reasons-why'>
                     <Reason imgSrc='./img/shield.png' reasonWhy='We are going to rob you' text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' />
-                    <Reason imgSrc='./img/dolar.png' reasonWhy='We want your $$$' text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' />
+                    <Reason className='bright-reason' imgSrc='./img/dolar.png' reasonWhy='We want your $$$' text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' />
                     <Reason imgSrc='./img/book.png' reasonWhy='Beacuse we believe' text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' />
                 </div>
             </div>
@@ -41,7 +44,7 @@ class MainPage extends React.Component {
             </div>
             <div id='Contact'>
                 <h2>Contact</h2>
-                <h3>If You have a question or You just want to contact with us, please leave a message!</h3>
+                <h3>If You have a question or You just want to contact with us,<br />please leave a message!</h3>
                 <Contact/>
             </div>
             <Footer/>

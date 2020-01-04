@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // zainstalowana biblioteka do wybierania sciezek
 import RegisterCustomer from './RegisterCustomer';
 import MainPage from './MainPage';
+import './App.css';
 
 const App = () => {
 

@@ -5,7 +5,7 @@ class Header extends React.Component{
     render() {
         return(
             <header className='nav-bar'>
-                <div>
+                <div className='logo'>
                     <img src='./img/car.png' alt='Our logo' />
                     <p>WoCh</p>
                 </div>
@@ -13,7 +13,7 @@ class Header extends React.Component{
                 <NavBarElement address='#About' name='About us'/>
                 <NavBarElement address='#Team' name='Our team'/>
                 <NavBarElement address='#Contact' name='Contact'/>
-                <NavBarElement address='#Sign' name='Sign up/in'/>
+                <NavBarElement className='button' address='#Sign' name='Sign up/in'/>
             </header>
         )
     }
