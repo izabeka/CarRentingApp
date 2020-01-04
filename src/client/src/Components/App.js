@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // zainstalowana biblioteka do wybierania sciezek
 import RegisterCustomer from './RegisterCustomer';
+import MainPage from './MainPage';
 
 const App = () => {
 
@@ -8,7 +9,8 @@ const App = () => {
     <Router>
         <Switch>
             <Route path="/register" exact component={RegisterCustomer} />
-    </Switch>
+            <Route path="/" exact component={MainPage} />
+        </Switch>
     </Router>
         );
     
