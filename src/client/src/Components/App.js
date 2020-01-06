@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // za
 import RegisterCustomer from './RegisterCustomer';
 import MainPage from './MainPage';
 import './App.css';
+import CarOrder from './CarOrder';
 
 import AdminLoginPage from './AdminLoginPage';
 import AdminProfile from './AdminProfile';
@@ -20,8 +21,9 @@ const App = () => {
             <Route path="/admin/me" exact component={AdminProfile} />
             <Route path="/admin/home" exact component={AdminHomePage} />
             <Route path="/admin/cars/:_id" exact component={AdminHomePage} />
+            <Route path="/order" exact component={CarOrder} />
         </Switch>
-    </Router>
+      </Router>
     );
     
 };
