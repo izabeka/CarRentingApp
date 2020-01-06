@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; // za
 import RegisterCustomer from './RegisterCustomer';
 import MainPage from './MainPage';
 import './App.css';
+import CarOrder from './CarOrder';
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
         <Switch>
             <Route path="/register" exact component={RegisterCustomer} />
             <Route path="/" exact component={MainPage} />
+            <Route path="/order" exact component={CarOrder} />
         </Switch>
     </Router>
     );
