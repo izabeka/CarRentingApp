@@ -68,9 +68,8 @@ function validateCar(car){
         height: Joi.string().required(),
         width: Joi.string().required(),
         length: Joi.string().required(),
-        amountOfCars: Joi.number(),
         registryNumber: Joi.string().required(),
-        dailyRentalRate: Joi.string().required()
+        dailyRentalRate: Joi.number().required(),
 
     };
 
