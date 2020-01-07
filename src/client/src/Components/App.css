@@ -1,5 +1,5 @@
 :root{
-    --dark-color: #6305AC;
+    --dark-color: rgb(153, 70, 216);
     --color: #9549F5;
     --bright-color: #DFACF1;
 }
@@ -15,7 +15,7 @@ a:hover, a:visited, a:link, a:active
     text-decoration: none;
 }
 
-.button, .nav-bar .button {
+.button {
     background-color: var(--dark-color);
     color: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -292,4 +292,67 @@ footer {
 footer p {
     width: 30%;
     flex: 1;
+}
+
+/* Car order */
+
+.order-page{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.order-page .order-page-form{
+        width: 600px;
+        height: 700px;
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        margin: 50px auto;
+        background-color: var(--dark-color);
+        padding-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: rgb(110, 110, 110) 10px 5px;
+
+}
+
+.order-page .order-page-form h2{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.order-page .order-page-form label{
+    width: 50px;
+}
+
+.order-page .order-page-form div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.order-page .order-page-form div p, select{
+    width: 150px;
+    align-items: center;
+    text-align: left;
+}
+
+.order-page .order-page-form div select{
+    height: 30px;
+}
+
+.order-page .order-page-form div p{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.order-page .order-page-form button{
+    font-weight: 600;
+    margin-top: 30px;
+    background-color: white;
+    height: 40px;
+    width: 100px;
+    border: 3px solid white;
+    border-radius: 6px;
 }
