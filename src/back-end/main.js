@@ -36,12 +36,6 @@ mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
-// Połączenie z lokalną bazą danych
-
-// mongoose.connect('mongodb://localhost/test')
-//   .then(() => console.log('Connected to MongoDB...'))
-//   .catch(err => console.error('Could not connect to MongoDB...'));
-
 //uzycie funkcji
 
 app.use(express.json());

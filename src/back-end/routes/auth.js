@@ -22,7 +22,6 @@ router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }));
 
-
 //auth with Fb
 passport.use(new FacebookStrategy({
   clientID: '1061924937473208',
